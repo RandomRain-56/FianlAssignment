@@ -10,5 +10,22 @@ import processing.core.PApplet;
  * @author 350325485
  */
 public class GraphicDraw extends PApplet{
-    
+     public void settings(){
+         
+     }
+     public void setup(){
+         
+     }
+     public void draw(){
+         
+     }
+     
+     public void keyPressed(){
+         
+     }
+     public void mousePressed(){
+         
+     }
 }
+
+
