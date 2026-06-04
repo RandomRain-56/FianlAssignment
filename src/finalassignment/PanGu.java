@@ -21,6 +21,10 @@ public class PanGu extends Person{
         x =  dx;
         y = dy;
     }
+    public void move(int dx, int dy) {
+        x += dx;
+        y += dy;
+    }
     public void draw() {
         app.image(image, x, y);
     }
