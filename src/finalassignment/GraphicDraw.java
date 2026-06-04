@@ -54,7 +54,17 @@ public class GraphicDraw extends PApplet{
             text(Page1Hint, 320, 200);
         }else if (stage == 1){//if the second stage
             this.image(StartingEgg, FixedPointX, FixedPointY);
-            pangu.draw();
+            pangu.draw();//draw the main character
+            fill(255);//set the text color to white
+            textSize(50);//set the text size
+            int TextpointX = 75;
+            int TextpointY = 113;
+            String Sentence1 = "In the beginning, the world was a chaotic mass";
+            String Sentence2 = "It shaped like an egg.";
+            String Sentence3 = "";
+            String Sentence4 = "";
+            String Sentence5 = "";
+            text(Sentence1, TextpointX, TextpointY);
             /**
             if (keyPressed) {
                 if (keyCode == LEFT) {
