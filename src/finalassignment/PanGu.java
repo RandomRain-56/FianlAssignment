@@ -28,6 +28,9 @@ public class PanGu extends Person{
         x += dx;
         y += dy;
     }
+    public void changeImage (String path){
+        this.image = app.loadImage(path);
+    }
     public void draw() {
         app.image(image, x, y);
     }
