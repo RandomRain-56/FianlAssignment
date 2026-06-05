@@ -14,6 +14,7 @@ public class Person {
     public int x, y; // position of the person
     public PApplet app; //the canvas used to display graphical elements
 
+
     public Person(PApplet p, int x, int y) {
         this.app = p;
         this.x = x;
@@ -28,4 +29,5 @@ public class Person {
         x += dx;
         y += dy;
     }
+   
 }
