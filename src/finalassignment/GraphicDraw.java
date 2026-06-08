@@ -27,6 +27,7 @@ public class GraphicDraw extends PApplet{
     //initanlize the bakcgournd image
     private PImage BackGround ;
     private PImage StartingEgg;
+    private PImage Wind;
     
      public void settings(){
          //set the screen size
@@ -36,6 +37,8 @@ public class GraphicDraw extends PApplet{
          BackGround = this.loadImage("images/StartingPage.png");
          StartingEgg = this.loadImage("images/WorldEgg.png");
          pangu = new PanGu(this, 384, 254);
+         PG = new PanGu(this, 384, 254);
+         Wind = this.loadImage("images/Wind.png");
      }
      
      public void draw(){
@@ -56,6 +59,7 @@ public class GraphicDraw extends PApplet{
         }else if (stage == 1){//if the second stage
             this.image(StartingEgg, FixedPointX, FixedPointY);
             pangu.draw();//draw the main character
+            PG.draw();
             fill(255);//set the text color to white
             textSize(50);//set the text size
             int TextpointX = 75;
@@ -70,7 +74,7 @@ public class GraphicDraw extends PApplet{
                     "He used axes to cleave the darkness before him"//6
             };
             text (StateOneSentence[Stage1SentenceCount], TextpointX, TextpointY);
-            /**
+            
             if (keyPressed) {
                 if (keyCode == LEFT) {
                   pangu.move(-5, 0);
@@ -85,11 +89,20 @@ public class GraphicDraw extends PApplet{
             if (pangu.isCollidingWith(PG)){
                 fill(255,0,0);
                 this.text("oouch1", PG.x, PG.y);
-            }**/
+                image(Wind, 800,600);
+            }
+        }else if (stage == 2){
+            
+            this.image(StartingEgg, FixedPointX, FixedPointY);
+            pangu.draw();//draw the main character
+            
+            
         }
      }
      public int Stage1SentenceCount = 0;
+     public int Stage2PersonCount = 0;
      public void keyPressed(){
+         boolean HeatCheck = true;
          if (stage == 0){//if  fist stage
             if (key == ' '){
                 stage = 1;
@@ -100,12 +113,22 @@ public class GraphicDraw extends PApplet{
                 if (Stage1SentenceCount == 4){
                     pangu.changeImage("images/man.png");
                 }
-                if (Stage1SentenceCount == 6){
+                if (Stage1SentenceCount == 7){
                     stage = 2;
+                    pangu.moveTo(800,200);
+                    pangu.changeImage("images/ReadyToHeat.png");
                 }
             }
         }else if (stage == 2){
-            
+            if (key == ' '){
+                if (HeatCheck ){
+                    pangu.changeImage("images/ReadyToHeat.png");
+                    HeatCheck = false;
+                }else {
+                    pangu.changeImage("images/FinishHeat.png");
+                    HeatCheck = true;
+                }
+            }
         }else{
             stage = 0;
         }
