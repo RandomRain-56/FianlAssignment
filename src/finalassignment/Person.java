@@ -20,6 +20,12 @@ public class Person {
         this.x = x;
         this.y = y;
     }
+    
+    public Person(PApplet p) {
+        this.app = p;
+        this.x = 0;
+        this.y = 0;
+    }
 
     public void moveTo(int dx, int dy){
         x = dx;

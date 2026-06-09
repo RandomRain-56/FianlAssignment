@@ -19,14 +19,14 @@ public class GraphicDraw extends PApplet{
     //set the Pangu
     private PanGu pangu;
     private PanGu PG;
-    public static boolean admin = true;
+    public static boolean admin = false;
     //Set this for a Fixed Point for all image
     public static final int FixedPointX = 0;
     public static final int FixedPointY = 0;
     //intalize the image
     //initanlize the bakcgournd image
     private PImage BackGround ;
-    private PImage StartingEgg;
+    private PImage Stage2Egg;
     private PImage Wind;
     
      public void settings(){
@@ -35,7 +35,7 @@ public class GraphicDraw extends PApplet{
      }
      public void setup(){
          BackGround = this.loadImage("images/StartingPage.png");
-         StartingEgg = this.loadImage("images/WorldEgg.png");
+         Stage2Egg = this.loadImage("images/WorldEgg.png");
          pangu = new PanGu(this, 384, 254);
          PG = new PanGu(this, 384, 254);
          Wind = this.loadImage("images/Wind.png");
@@ -57,9 +57,9 @@ public class GraphicDraw extends PApplet{
             textSize(50);//set the text size
             text(Page1Hint, 320, 200);
         }else if (stage == 1){//if the second stage
-            this.image(StartingEgg, FixedPointX, FixedPointY);
+            this.image(Stage2Egg, FixedPointX, FixedPointY);
             pangu.draw();//draw the main character
-            PG.draw();
+            //PG.draw();
             fill(255);//set the text color to white
             textSize(50);//set the text size
             int TextpointX = 75;
@@ -74,7 +74,7 @@ public class GraphicDraw extends PApplet{
                     "He used axes to cleave the darkness before him"//6
             };
             text (StateOneSentence[Stage1SentenceCount], TextpointX, TextpointY);
-            
+            /**
             if (keyPressed) {
                 if (keyCode == LEFT) {
                   pangu.move(-5, 0);
@@ -90,19 +90,42 @@ public class GraphicDraw extends PApplet{
                 fill(255,0,0);
                 this.text("oouch1", PG.x, PG.y);
                 image(Wind, 800,600);
-            }
+            }**/
         }else if (stage == 2){
-            
-            this.image(StartingEgg, FixedPointX, FixedPointY);
+            this.image(Stage2Egg, FixedPointX, FixedPointY);
             pangu.draw();//draw the main character
-            
+            if (HeatCount == 2 && stage == 2){
+                Stage2Egg = this.loadImage("images/MiddleEgg.png");
+            }else if (HeatCount == 4 && stage == 2){
+                Stage2Egg = this.loadImage("images/BrokenEgg.png");
+            }
+        }else if (stage == 3){
+            this.image(Stage2Egg, FixedPointX, FixedPointY);
+            pangu.draw();//draw the main character
+            fill(255);//set the text color to white
+            textSize(50);//set the text size
+            int TextpointX = 75;
+            int TextpointY = 113;
+            String [] StateThreeSentence = {
+                "Pangu used an axe to split the egg.",
+                "The liquid in the egg begins to separate.",
+                "The clear liquid flowed upwards.",
+                "They became the sky.",
+                "The foul liquid flowed downwards.",
+                "They became the land.",
+                "Thus, the world was formed."
+            };
+            text (StateThreeSentence[Stage3SentenceCount], TextpointX, TextpointY);
+        }else if (stage == 4){
             
         }
      }
      public int Stage1SentenceCount = 0;
      public int Stage2PersonCount = 0;
+     public int Stage3SentenceCount = 0;
+     public boolean HeatCheck = true;
+     public int HeatCount = 0;
      public void keyPressed(){
-         boolean HeatCheck = true;
          if (stage == 0){//if  fist stage
             if (key == ' '){
                 stage = 1;
@@ -112,23 +135,48 @@ public class GraphicDraw extends PApplet{
                 Stage1SentenceCount++;
                 if (Stage1SentenceCount == 4){
                     pangu.changeImage("images/man.png");
+                    pangu.moveTo(420,210);
                 }
                 if (Stage1SentenceCount == 7){
                     stage = 2;
-                    pangu.moveTo(800,200);
+                    pangu.moveTo(146,166);
                     pangu.changeImage("images/ReadyToHeat.png");
                 }
             }
         }else if (stage == 2){
             if (key == ' '){
                 if (HeatCheck ){
-                    pangu.changeImage("images/ReadyToHeat.png");
+                    pangu.changeImage("images/FinishHeat.png");
                     HeatCheck = false;
                 }else {
-                    pangu.changeImage("images/FinishHeat.png");
+                    pangu.changeImage("images/ReadyToHeat.png");
                     HeatCheck = true;
                 }
             }
+            if (!HeatCheck){
+                HeatCount ++;
+            }
+            if ( HeatCount == 6){
+                stage = 3;
+            }
+        }else if (stage == 3){
+            if (key == ' '){
+                Stage3SentenceCount++;
+                if (HeatCheck ){
+                    pangu.changeImage("images/FinishHeat.png");
+                    HeatCheck = false;
+                }else {
+                    pangu.changeImage("images/ReadyToHeat.png");
+                    HeatCheck = true;
+                }
+                if (Stage3SentenceCount == 6){
+                    stage = 4;
+                    
+                }
+            }
+        }else if (stage == 4){
+            
+            
         }else{
             stage = 0;
         }
