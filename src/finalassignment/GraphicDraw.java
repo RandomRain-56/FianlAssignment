@@ -28,6 +28,7 @@ public class GraphicDraw extends PApplet{
     private PImage BackGround ;
     private PImage Stage2Egg;
     private PImage Wind;
+    private PImage StartWorld;
     
      public void settings(){
          //set the screen size
@@ -39,6 +40,7 @@ public class GraphicDraw extends PApplet{
          pangu = new PanGu(this, 384, 254);
          PG = new PanGu(this, 384, 254);
          Wind = this.loadImage("images/Wind.png");
+         StartWorld = this.loadImage("images/Ground.png");
      }
      
      public void draw(){
@@ -117,14 +119,31 @@ public class GraphicDraw extends PApplet{
             };
             text (StateThreeSentence[Stage3SentenceCount], TextpointX, TextpointY);
         }else if (stage == 4){
+            this.image(StartWorld, FixedPointX, FixedPointY);
+            pangu.draw();
+            String [] StateFourSentence = {
+                "The world was initially very narrow.",//0
+                "Pangu used his own body to expand the world.",//1
+                "That's why the sky is so high.",
+                "Pangu died from the exhaustion.",//3
+                "His body became part of the world.",
+                "His eyes became the sun and moon.",//5
+                "His sweat became rain, creating plants.",//6
+                "His bones became mountains.",
+                "His breath became the seasons and winds.",//8
+                "His blood became rivers.",//9
+                "Finally, Pangu became this world."//10
+            };
             
         }
      }
      public int Stage1SentenceCount = 0;
      public int Stage2PersonCount = 0;
      public int Stage3SentenceCount = 0;
+     public int Stage4AnimationCount = 0;
      public boolean HeatCheck = true;
      public int HeatCount = 0;
+     public boolean JumpCount = true;
      public void keyPressed(){
          if (stage == 0){//if  fist stage
             if (key == ' '){
@@ -171,12 +190,37 @@ public class GraphicDraw extends PApplet{
                 }
                 if (Stage3SentenceCount == 6){
                     stage = 4;
-                    
+                    pangu.changeImage("images/ReadyMan.png");
                 }
             }
         }else if (stage == 4){
-            
-            
+            if (key == ' '){
+                Stage4AnimationCount++;
+            }
+            if (Stage4AnimationCount <3){
+                if (JumpCount){
+                    pangu.changeImage("images/JumpMan.png");
+                    pangu.move(0, -100);
+                    JumpCount = false;
+                }else {
+                    pangu.changeImage("images/ReadyMan.png");
+                    pangu.move(0, 100);
+                    JumpCount = true;
+                }
+            }else if (Stage4AnimationCount == 3){
+                pangu.changeImage("images/JumpMan.png");
+            }
+            if (Stage4AnimationCount == 5){
+                StartWorld = this.loadImage("images/GroudWithSun.png");
+            }else if (Stage4AnimationCount ==   6){
+                StartWorld = this.loadImage("images/Ground.png");
+            }else if (Stage4AnimationCount ==   8){
+                StartWorld = this.loadImage("images/Ground.png");
+            }else if (Stage4AnimationCount ==   9){
+                StartWorld = this.loadImage("images/Ground.png");
+            }else if (Stage4AnimationCount ==   10){
+                StartWorld = this.loadImage("images/Ground.png");
+            }
         }else{
             stage = 0;
         }
