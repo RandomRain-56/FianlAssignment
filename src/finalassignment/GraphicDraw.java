@@ -74,9 +74,10 @@ public class GraphicDraw extends PApplet{
                 int i = 0;
                 while (FI.hasNext()){
                     StateOneSentence[i] = FI.nextLine();
+                    i++;
                 }
                 FI.close();
-            }catch(Exception e){
+            }catch(IOException e){
                 System.out.println(e);
             }
             text (StateOneSentence[Stage1SentenceCount], TextpointX, TextpointY);
