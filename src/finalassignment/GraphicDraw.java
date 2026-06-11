@@ -120,7 +120,11 @@ public class GraphicDraw extends PApplet{
             text (StateThreeSentence[Stage3SentenceCount], TextpointX, TextpointY);
         }else if (stage == 4){
             this.image(StartWorld, FixedPointX, FixedPointY);
-            pangu.draw();
+            int TextpointX = 75;
+            int TextpointY = 113;
+            if (Stage4AnimationCount!= 10){
+                pangu.draw();
+            }
             String [] StateFourSentence = {
                 "The world was initially very narrow.",//0
                 "Pangu used his own body to expand the world.",//1
@@ -134,7 +138,13 @@ public class GraphicDraw extends PApplet{
                 "His blood became rivers.",//9
                 "Finally, Pangu became this world."//10
             };
-            
+            text (StateFourSentence[Stage4AnimationCount], TextpointX, TextpointY);
+        }else if ( stage == 5){
+            this.image(BackGround, FixedPointX, FixedPointY);
+            String ByeBye = "Thank You for Your Wathcing!";
+            int TextpointX = 75;
+            int TextpointY = 113;
+            text (ByeBye, TextpointX, TextpointY);
         }
      }
      public int Stage1SentenceCount = 0;
@@ -191,6 +201,7 @@ public class GraphicDraw extends PApplet{
                 if (Stage3SentenceCount == 6){
                     stage = 4;
                     pangu.changeImage("images/ReadyMan.png");
+                    pangu.moveTo(428, 380);
                 }
             }
         }else if (stage == 4){
@@ -200,29 +211,32 @@ public class GraphicDraw extends PApplet{
             if (Stage4AnimationCount <3){
                 if (JumpCount){
                     pangu.changeImage("images/JumpMan.png");
-                    pangu.move(0, -100);
+                    pangu.move(0, -200);
                     JumpCount = false;
                 }else {
                     pangu.changeImage("images/ReadyMan.png");
-                    pangu.move(0, 100);
+                    pangu.move(0, 200);
                     JumpCount = true;
                 }
             }else if (Stage4AnimationCount == 3){
-                pangu.changeImage("images/JumpMan.png");
+                pangu.changeImage("images/DeathMan.png");
+                pangu.moveTo(434, 409);
             }
             if (Stage4AnimationCount == 5){
                 StartWorld = this.loadImage("images/GroudWithSun.png");
             }else if (Stage4AnimationCount ==   6){
-                StartWorld = this.loadImage("images/Ground.png");
+                StartWorld = this.loadImage("images/GreenGround.png");
             }else if (Stage4AnimationCount ==   8){
-                StartWorld = this.loadImage("images/Ground.png");
+                StartWorld = this.loadImage("images/GroundWithRiver.png");
             }else if (Stage4AnimationCount ==   9){
-                StartWorld = this.loadImage("images/Ground.png");
+                StartWorld = this.loadImage("images/GroundWithRiver.png");
             }else if (Stage4AnimationCount ==   10){
-                StartWorld = this.loadImage("images/Ground.png");
+                StartWorld = this.loadImage("images/GroundSunGreen.png");
+            }else if (Stage4AnimationCount == 11){
+                stage = 5;
             }
         }else{
-            stage = 0;
+            
         }
      }
      public void mousePressed(){
