@@ -7,7 +7,10 @@ package finalassignment;
 //import the draw core
 import processing.core.PApplet;
 import processing.core.PImage;
-import processing.core.PFont;
+import processing.core.PFont;    
+import java.io.File;
+import java.util.Scanner;
+import java.io.IOException;
 /**
  *
  * @author 350325485
@@ -29,7 +32,6 @@ public class GraphicDraw extends PApplet{
     private PImage Stage2Egg;
     private PImage Wind;
     private PImage StartWorld;
-    
      public void settings(){
          //set the screen size
          size (1200,800);
@@ -66,28 +68,20 @@ public class GraphicDraw extends PApplet{
             textSize(50);//set the text size
             int TextpointX = 75;
             int TextpointY = 113;
-            String [] StateOneSentence = {
-                    "In the beginning, the world was a chaotic mass",//0
-                    "It shaped like an egg.",//1
-                    "Pangu was born from the egg",//2
-                    "He slept inside for eightenn thousands years",//3
-                    "One day, he suddently wake up",//4
-                    "He felt the world was too dark",//5
-                    "He used axes to cleave the darkness before him"//6
-            };
+            String [] StateOneSentence = new String [7];
+            try {
+                Scanner FI = new Scanner ( new File("stageThree.txt"));
+                int i = 0;
+                while (FI.hasNext()){
+                    StateOneSentence[i] = FI.nextLine();
+                }
+                FI.close();
+            }catch(Exception e){
+                System.out.println(e);
+            }
             text (StateOneSentence[Stage1SentenceCount], TextpointX, TextpointY);
             /**
-            if (keyPressed) {
-                if (keyCode == LEFT) {
-                  pangu.move(-5, 0);
-                } else if (keyCode == RIGHT) {
-                  pangu.move(5, 0);
-                } else if (keyCode == UP) {
-                  pangu.move(0, -5);
-                } else if (keyCode == DOWN) {
-                  pangu.move(0, 5);
-                }
-            }
+            
             if (pangu.isCollidingWith(PG)){
                 fill(255,0,0);
                 this.text("oouch1", PG.x, PG.y);
@@ -117,6 +111,17 @@ public class GraphicDraw extends PApplet{
                 "They became the land.",
                 "Thus, the world was formed."
             };
+            if (keyPressed) {
+                if (keyCode == LEFT) {
+                  pangu.move(-5, 0);
+                } else if (keyCode == RIGHT) {
+                  pangu.move(5, 0);
+                } else if (keyCode == UP) {
+                  pangu.move(0, -5);
+                } else if (keyCode == DOWN) {
+                  pangu.move(0, 5);
+                }
+            }
             text (StateThreeSentence[Stage3SentenceCount], TextpointX, TextpointY);
         }else if (stage == 4){
             this.image(StartWorld, FixedPointX, FixedPointY);
@@ -177,9 +182,11 @@ public class GraphicDraw extends PApplet{
                 if (HeatCheck ){
                     pangu.changeImage("images/FinishHeat.png");
                     HeatCheck = false;
+                    pangu.moveTo(146,166);
                 }else {
                     pangu.changeImage("images/ReadyToHeat.png");
                     HeatCheck = true;
+                    pangu.moveTo(146,166);
                 }
             }
             if (!HeatCheck){
@@ -194,9 +201,11 @@ public class GraphicDraw extends PApplet{
                 if (HeatCheck ){
                     pangu.changeImage("images/FinishHeat.png");
                     HeatCheck = false;
+                    pangu.moveTo(146,166);
                 }else {
                     pangu.changeImage("images/ReadyToHeat.png");
                     HeatCheck = true;
+                    pangu.moveTo(146,166);
                 }
                 if (Stage3SentenceCount == 6){
                     stage = 4;
