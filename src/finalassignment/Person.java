@@ -35,5 +35,4 @@ public class Person {
         x += dx;
         y += dy;
     }
-   
 }

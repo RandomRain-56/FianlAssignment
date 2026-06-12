@@ -19,9 +19,10 @@ public class GraphicDraw extends PApplet{
     //set a variable to controle the stage 
     private int stage = 0;
     PFont font;
-    //set the Pangu
+    //set the Pangu 
     private PanGu pangu;
     private PanGu PG;
+    public axe SuperAxe;
     public static boolean admin = false;
     //Set this for a Fixed Point for all image
     public static final int FixedPointX = 0;
@@ -39,12 +40,40 @@ public class GraphicDraw extends PApplet{
      public void setup(){
          BackGround = this.loadImage("images/StartingPage.png");
          Stage2Egg = this.loadImage("images/WorldEgg.png");
-         pangu = new PanGu(this, 384, 254);
-         PG = new PanGu(this, 384, 254);
+         SuperAxe = new axe (this, "Pangu use this axe to open sky", "Open Sky Axes", "images/axe.png");
+         pangu = new PanGu(this, 384, 254,SuperAxe);
+         PG = new PanGu(this, 384, 254,SuperAxe);
          Wind = this.loadImage("images/Wind.png");
          StartWorld = this.loadImage("images/Ground.png");
+         DisplayInfo(pangu);
+         DisplayInfo(SuperAxe);
+         
      }
-     
+     public String [][] SenarioScentence= {
+         {
+                "Pangu used an axe to split the egg.",
+                "The liquid in the egg begins to separate.",
+                "The clear liquid flowed upwards.",
+                "They became the sky.",
+                "The foul liquid flowed downwards.",
+                "They became the land.",
+                "Thus, the world was formed."
+            },
+         {
+                "The world was initially very narrow.",//0
+                "Pangu used his own body to expand the world.",//1
+                "That's why the sky is so high.",
+                "Pangu died from the exhaustion.",//3
+                "His body became part of the world.",
+                "His eyes became the sun and moon.",//5
+                "His sweat became rain, creating plants.",//6
+                "His bones became mountains.",
+                "His breath became the seasons and winds.",//8
+                "His blood became rivers.",//9
+                "Finally, Pangu became this world."//10
+            }
+     };
+             
      public void draw(){
          if (stage == 0){//if the fist stage
             //draw the background
@@ -103,27 +132,8 @@ public class GraphicDraw extends PApplet{
             textSize(50);//set the text size
             int TextpointX = 75;
             int TextpointY = 113;
-            String [] StateThreeSentence = {
-                "Pangu used an axe to split the egg.",
-                "The liquid in the egg begins to separate.",
-                "The clear liquid flowed upwards.",
-                "They became the sky.",
-                "The foul liquid flowed downwards.",
-                "They became the land.",
-                "Thus, the world was formed."
-            };
-            if (keyPressed) {
-                if (keyCode == LEFT) {
-                  pangu.move(-5, 0);
-                } else if (keyCode == RIGHT) {
-                  pangu.move(5, 0);
-                } else if (keyCode == UP) {
-                  pangu.move(0, -5);
-                } else if (keyCode == DOWN) {
-                  pangu.move(0, 5);
-                }
-            }
-            text (StateThreeSentence[Stage3SentenceCount], TextpointX, TextpointY);
+
+            text (SenarioScentence[0][Stage3SentenceCount], TextpointX, TextpointY);
         }else if (stage == 4){
             this.image(StartWorld, FixedPointX, FixedPointY);
             int TextpointX = 75;
@@ -131,20 +141,14 @@ public class GraphicDraw extends PApplet{
             if (Stage4AnimationCount!= 10){
                 pangu.draw();
             }
-            String [] StateFourSentence = {
-                "The world was initially very narrow.",//0
-                "Pangu used his own body to expand the world.",//1
-                "That's why the sky is so high.",
-                "Pangu died from the exhaustion.",//3
-                "His body became part of the world.",
-                "His eyes became the sun and moon.",//5
-                "His sweat became rain, creating plants.",//6
-                "His bones became mountains.",
-                "His breath became the seasons and winds.",//8
-                "His blood became rivers.",//9
-                "Finally, Pangu became this world."//10
-            };
-            text (StateFourSentence[Stage4AnimationCount], TextpointX, TextpointY);
+            if (keyPressed) {
+                if (keyCode == LEFT) {
+                  pangu.move(-5, 0);
+                } else if (keyCode == RIGHT) {
+                  pangu.move(5, 0);
+                }
+            }
+            text (SenarioScentence[1][Stage4AnimationCount], TextpointX, TextpointY);
         }else if ( stage == 5){
             this.image(BackGround, FixedPointX, FixedPointY);
             String ByeBye = "Thank You for Your Wathcing!";
@@ -217,7 +221,7 @@ public class GraphicDraw extends PApplet{
         }else if (stage == 4){
             if (key == ' '){
                 Stage4AnimationCount++;
-            }
+            
             if (Stage4AnimationCount <3){
                 if (JumpCount){
                     pangu.changeImage("images/JumpMan.png");
@@ -245,6 +249,7 @@ public class GraphicDraw extends PApplet{
             }else if (Stage4AnimationCount == 11){
                 stage = 5;
             }
+            }
         }else{
             
         }
@@ -254,6 +259,18 @@ public class GraphicDraw extends PApplet{
             System.out.println(mouseX+ " ," + mouseY);
             pangu.moveTo(mouseX, mouseY);
          }
+     }
+     public void DisplayInfo(Person p){
+         System.out.println("x:" + p.x);
+         System.out.println("y:" + p.x);
+         if (p instanceof PanGu){
+             System.out.println("it is Pangu");
+            System.out.println("has " + ((PanGu) p).axes.Name);
+            System.out.println("it is " + ((PanGu) p).axes.Description);
+        }else if (p instanceof axe){
+            System.out.println("has " + ((axe) p).Name);
+            System.out.println("has " + ((axe) p).Name);
+        }
      }
 }
 

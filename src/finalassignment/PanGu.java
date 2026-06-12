@@ -13,12 +13,14 @@ import processing.core.PImage;
 public class PanGu extends Person{
     private PImage image;//the image need to use
     private int width, height;
+    public  axe axes;
     
-    public PanGu(PApplet p, int x, int y){
+    public PanGu(PApplet p, int x, int y, axe a){
         super(p,x,y);//transfer VAriable to parent class
         this.image = p.loadImage("images/sleepMan.png");
         this.width = image.width;
         this.height = image.height;
+        this.axes = a;
     }
     public void moveTo(int dx, int dy){
         x =  dx;
